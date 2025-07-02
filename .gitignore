@@ -1,0 +1,5 @@
+# Ignore the entire folder example folder_to_ignore/
+venv/
+# Ignore specific files example file_to_ignore.txt
+.env
+# Ignore all .log files example *.log
