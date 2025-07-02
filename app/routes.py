@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template
-from .models import db
+from .models import db, AmazonOrder
 
 dashboard = Blueprint("dashboard", __name__)
 
 @dashboard.route("/")
 def index():
-    return render_template("dashboard.html", data=[])
-    
+    data = AmazonOrder.query.order_by(AmazonOrder.order_date.desc()).limit(10).all()
+    return render_template("dashboard.html", data=data)
