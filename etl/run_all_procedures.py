@@ -18,15 +18,15 @@ for client_id in os.listdir(BASE_PATH):
         continue
 
     schema = client_id.lower()
-    print(f"\n🚀 Ejecutando procedures para cliente: {schema}")
+    print(f"\n🚀 Ejecutando stored procedures para cliente: {schema}")
 
     try:
         with engine.begin() as conn:
-            conn.execute(text(f"CALL {schema}.etl_raw_to_stg();"))
-            print(f"✅ {schema}.etl_raw_to_stg() ejecutado")
+            conn.execute(text("CALL public.etl_raw_to_stg(:schema)"), {"schema": schema})
+            print(f"✅ public.etl_raw_to_stg('{schema}') ejecutado")
 
-            conn.execute(text(f"CALL {schema}.etl_stg_to_prod();"))
-            print(f"✅ {schema}.etl_stg_to_prod() ejecutado")
+            conn.execute(text("CALL public.etl_stg_to_prod(:schema)"), {"schema": schema})
+            print(f"✅ public.etl_stg_to_prod('{schema}') ejecutado")
 
     except Exception as e:
-        print(f"❌ Error para {schema}: {e}")
+        print(f"❌ Error al ejecutar procedures para '{schema}': {e}")
