@@ -137,3 +137,107 @@ Agregar:
 
 - Visualización web (dashboard por cliente)
 - Gráficos con indicadores clave
+
+
+
+
+# 🛠 Ecommerce Dashboard Portal
+
+Este proyecto es un portal web construido con **Flask** y **Plotly.js** que permite visualizar reportes de Profit & Loss para distintos clientes en base a datos procesados previamente en una base de datos PostgreSQL.
+
+---
+
+## 🚀 Estructura del Proyecto
+
+```
+ecommerce-dashboard/
+├── app.py                    # Lanza la app Flask
+├── portal/
+│   ├── __init__.py           # Blueprint 'portal'
+│   ├── views.py              # Renderiza el dashboard HTML
+│   ├── data_api.py           # Devuelve datos filtrados para gráficos
+│   └── db.py (opcional)      # Conexión a la base de datos
+├── templates/
+│   └── dashboard.html        # HTML con filtros y contenedores de gráficos
+├── static/
+│   └── dashboard.js          # JavaScript con filtros + llamadas a API + Plotly.js
+├── .env                      # DATABASE_URL y otras variables
+├── requirements.txt
+```
+
+---
+
+## 📊 ¿Qué hace este portal?
+
+- Visualiza reportes para cada cliente vía URL: `/dashboard/<client_id>`
+- Se conecta a la base PostgreSQL y usa la vista:
+  - `<client_id>.vw_dashboard_settlement`
+- Renderiza 4 gráficos:
+  - Ventas totales por fecha
+  - Ventas por SKU
+  - Distribución por `amount_description`
+  - Tendencia de ventas
+- Filtros disponibles:
+  - Fecha (`start_date`, `end_date`)
+  - SKU
+  - amount_description
+
+---
+
+## ⚙️ Cómo ejecutar el portal
+
+1. Cloná el repositorio y activá tu entorno virtual
+
+```bash
+cd ecommerce-dashboard
+pip install -r requirements.txt
+```
+
+2. Configurá el archivo `.env` con tu cadena de conexión PostgreSQL:
+
+```
+DATABASE_URL=postgresql://usuario:password@host:puerto/db
+```
+
+3. Ejecutá Flask:
+
+```bash
+python app.py
+```
+
+4. Accedé en el navegador:
+
+```
+http://localhost:5000/dashboard/prune
+```
+
+(reemplazá `prune` por el nombre del cliente deseado)
+
+---
+
+## 🧱 Requisitos para que funcione
+
+- La base debe tener por cada cliente:
+  - `schema_name.prod_settlement_fact`
+  - `schema_name.dim_catalog`
+  - `public.dim_mapping_table`
+  - `schema_name.vw_dashboard_settlement` ✅ (vista usada por el portal)
+
+---
+
+## 🧩 Stored Procedure para crear la vista
+
+```sql
+CALL public.create_dashboard_view('cliente_id');
+```
+
+---
+
+## 📎 Notas
+
+- Este proyecto solo **visualiza datos ya procesados**. El ETL y la API de carga están en otro proyecto separado (`ecommerce-etl`).
+- Podés agregar autenticación, exportación, y métricas adicionales.
+
+---
+
+¡Listo para visualizar resultados! 📊✨

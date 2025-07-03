@@ -1,32 +1,81 @@
-# templates/dashboard.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard - {{ client_id }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Dashboard</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h2>Dashboard: {{ client_id }}</h2>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-7xl mx-auto py-6 px-4">
+    <h1 class="text-2xl font-bold mb-4">Dashboard: {{ client_id }}</h1>
 
-  <label>Start Date: <input type="date" id="start_date"></label>
-  <label>End Date: <input type="date" id="end_date"></label>
-  <label>SKU: <input type="text" id="sku"></label>
-  <label>Amount Description: <input type="text" id="amount_description"></label>
-  <button onclick="loadData()">Filtrar</button>
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Sales</p>
+        <p id="sales" class="text-green-600 font-bold text-lg">$0</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Units Sold</p>
+        <p id="units" class="text-blue-600 font-bold text-lg">0</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Profit</p>
+        <p id="profit" class="text-purple-600 font-bold text-lg">$0</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Advertising</p>
+        <p id="ads" class="text-red-400 font-bold text-lg">$0</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Refunds</p>
+        <p id="refunds" class="text-red-600 font-bold text-lg">$0</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <p class="text-sm text-gray-500">Payout</p>
+        <p id="payout" class="text-yellow-600 font-bold text-lg">$0</p>
+      </div>
+    </div>
 
-  <div id="graph1"></div>
-  <div id="graph2"></div>
-  <div id="graph3"></div>
-  <div id="graph4"></div>
+    <!-- Graphs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="w-full">
+        <h2 class="font-semibold mb-2">Sales Over Time</h2>
+        <div id="salesChart" class="w-full h-[300px]"></div>
+      </div>
+      <div class="w-full">
+        <h2 class="font-semibold mb-2">Units Sold Over Time</h2>
+        <div id="unitsChart" class="w-full h-[300px]"></div>
+      </div>
+      <div class="w-full">
+        <h2 class="font-semibold mb-2">Profit Over Time</h2>
+        <div id="profitChart" class="w-full h-[300px]"></div>
+      </div>
+      <div class="w-full">
+        <h2 class="font-semibold mb-2">Advertising Over Time</h2>
+        <div id="adsChart" class="w-full h-[300px]"></div>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const client_id = "{{ client_id }}";
-  </script>
+  <!-- <script>
+    const client = "{{ client_id }}";
+
+    async function fetchData() {
+      const res = await fetch(`/api/data/${client}`);
+      const data = await res.json();
+
+      // Agregá tu lógica para calcular KPIs y cargar los gráficos aquí
+      // Por ejemplo, filtrar data por amount_description, agrupar por fecha, etc.
+
+      // Aquí simplemente lo mostramos en consola
+      console.log(data);
+    }
+
+    fetchData();
+  </script> -->
   <script src="/static/dashboard.js"></script>
 </body>
 </html>
-
-
-
