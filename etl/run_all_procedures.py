@@ -27,6 +27,9 @@ for client_id in os.listdir(BASE_PATH):
 
             conn.execute(text("CALL public.etl_stg_to_prod(:schema)"), {"schema": schema})
             print(f"✅ public.etl_stg_to_prod('{schema}') ejecutado")
+            
+            conn.execute(text("CALL public.create_dashboard_view(:schema)"), {"schema": schema})
+            print(f"✅ public.create_dashboard_view('{schema}') ejecutado")
 
     except Exception as e:
         print(f"❌ Error al ejecutar procedures para '{schema}': {e}")

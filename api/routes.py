@@ -23,6 +23,8 @@ import os
 api = Blueprint("api", __name__)
 BASE_FOLDER = "data"
 
+from . import api
+
 @api.route("/upload", methods=["POST"])
 def upload_file():
     client_id = request.form.get("client_id")

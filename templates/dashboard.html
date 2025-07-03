@@ -1,0 +1,32 @@
+# templates/dashboard.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - {{ client_id }}</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>Dashboard: {{ client_id }}</h2>
+
+  <label>Start Date: <input type="date" id="start_date"></label>
+  <label>End Date: <input type="date" id="end_date"></label>
+  <label>SKU: <input type="text" id="sku"></label>
+  <label>Amount Description: <input type="text" id="amount_description"></label>
+  <button onclick="loadData()">Filtrar</button>
+
+  <div id="graph1"></div>
+  <div id="graph2"></div>
+  <div id="graph3"></div>
+  <div id="graph4"></div>
+
+  <script>
+    const client_id = "{{ client_id }}";
+  </script>
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>
+
+
+

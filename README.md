@@ -83,7 +83,7 @@ Este script:
 
 ## 🧠 4. Stored Procedures
 
-### Tenés que crear los SPs en pgAdmin por cada cliente.
+### Los SPs en pgAdmin están en el schema public.
 
 #### 📌 SP 1: `etl_raw_to_stg`
 - Limpia y mueve datos desde `raw` a `stg`
@@ -99,6 +99,10 @@ Este script:
 ```sql
 CALL prune.etl_raw_to_stg();
 CALL prune.etl_stg_to_prod();
+```
+o todos juntos:
+```bash
+python etl/run_all_procedures.py
 ```
 
 ---
