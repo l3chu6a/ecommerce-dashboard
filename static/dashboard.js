@@ -35,7 +35,7 @@ async function fetchAndRender() {
   data.forEach(row => {
     const rawDate = row.date;
     const d = new Date(rawDate);
-    const amt = parseFloat(row.amount || 0);
+    const amt = parseFloat(row.total || 0);
     const desc = (row.amount_description || "").toLowerCase();
     const sku = (row.sku || "").toLowerCase();
 

@@ -11,6 +11,17 @@
   <div class="max-w-7xl mx-auto py-6 px-4">
     <h1 class="text-2xl font-bold mb-4">Dashboard: {{ client_id }}</h1>
 
+<!-- Filters -->
+  <div class="flex flex-wrap items-center gap-4 mb-6">
+    <div class="flex gap-2">
+      <button data-range="all" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">All</button>
+      <button data-range="month" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Month</button>
+      <button data-range="week" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Week</button>
+      <button data-range="yesterday" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Yesterday</button>
+    </div>
+    <input id="skuFilter" type="text" placeholder="Filter by SKU" class="px-3 py-1 border rounded w-40" />
+    <input id="descFilter" type="text" placeholder="Filter by Description" class="px-3 py-1 border rounded w-52" />
+  </div>
     <!-- KPI Cards -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
       <div class="bg-white p-4 rounded shadow text-center">
