@@ -8,13 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50 text-gray-800">
-  <div class="max-w-7xl mx-auto py-6 px-4">
+  <!-- <div class="max-w-7xl mx-auto py-6 px-4"> -->
+  <div class="w-full px-4 py-6">  
     <h1 class="text-2xl font-bold mb-4">Dashboard: {{ client_id }}</h1>
 
 <!-- Filters -->
   <div class="flex flex-wrap items-center gap-4 mb-6">
     <div class="flex gap-2">
       <button data-range="all" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">All</button>
+      <button data-range="previous month" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Previous Month</button>
       <button data-range="month" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Month</button>
       <button data-range="week" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Week</button>
       <button data-range="yesterday" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Yesterday</button>
@@ -53,20 +55,20 @@
     <!-- Graphs -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="w-full">
-        <h2 class="font-semibold mb-2">Sales Over Time</h2>
-        <div id="salesChart" class="w-full h-[300px]"></div>
+        <h2 class="text-xl font-light text-center tracking-wide mb-2">Sales Over Time</h2>
+        <div id="salesChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="font-semibold mb-2">Units Sold Over Time</h2>
-        <div id="unitsChart" class="w-full h-[300px]"></div>
+        <h2 class="text-xl font-light text-center tracking-wide mb-2">Units Sold Over Time</h2>
+        <div id="unitsChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="font-semibold mb-2">Profit Over Time</h2>
-        <div id="profitChart" class="w-full h-[300px]"></div>
+        <h2 class="text-xl font-light text-center tracking-wide mb-2">Profit Over Time</h2>
+        <div id="profitChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="font-semibold mb-2">Advertising Over Time</h2>
-        <div id="adsChart" class="w-full h-[300px]"></div>
+        <h2 class="text-xl font-light text-center tracking-wide mb-2">Advertising Over Time</h2>
+        <div id="adsChart" class="w-full h-[400px]"></div>
       </div>
     </div>
   </div>

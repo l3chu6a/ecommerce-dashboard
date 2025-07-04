@@ -25,14 +25,14 @@ def get_dashboard_data(client_id):
     amount_description = request.args.get("amount_description")
 
     base_query = f"""
-        SELECT date, sku, amount_description, SUM(amount) as total
+        SELECT date, sku, amount_description, amount as total
         FROM {client_id}.vw_dashboard_settlement
         WHERE 1=1
     """
 
     params = {}
     if start_date and end_date:
-        base_query += " AND date BETWEEN :date AND :date"
+        base_query += " AND date BETWEEN :start_date AND :end_date"
         params["start_date"] = start_date
         params["end_date"] = end_date
     if sku:
@@ -42,7 +42,7 @@ def get_dashboard_data(client_id):
         base_query += " AND amount_description = :amount_description"
         params["amount_description"] = amount_description.strip()
 
-    base_query += " GROUP BY date, sku, amount_description ORDER BY date"
+    # base_query += " GROUP BY date, sku, amount_description ORDER BY date"
 
     print("==== DASHBOARD QUERY ====")
     print("Client:", client_id)
@@ -53,6 +53,10 @@ def get_dashboard_data(client_id):
 
     with engine.begin() as conn:
         result = conn.execute(text(base_query), params)
+        rows = [
+            {key: value for key, value in zip(result.keys(), row)}
+            for row in result.fetchall()
+        ]
 
     print("Resultado crudo:", rows)
     return jsonify(rows)
