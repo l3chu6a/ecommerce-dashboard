@@ -8,7 +8,8 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 # Base de carpetas
-BASE_PATH = "data"
+# BASE_PATH = "data"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
 
 # Recorremos cada cliente
 for client_id in os.listdir(BASE_PATH):

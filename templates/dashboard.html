@@ -23,6 +23,7 @@
     </div>
     <input id="skuFilter" type="text" placeholder="Filter by SKU" class="px-3 py-1 border rounded w-40" />
     <input id="descFilter" type="text" placeholder="Filter by Description" class="px-3 py-1 border rounded w-52" />
+    <input id="markFilter" type="text" placeholder="Filter by Marketplace" class="px-3 py-1 border rounded w-52" />
   </div>
     <!-- KPI Cards -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
@@ -55,19 +56,19 @@
     <!-- Graphs -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="w-full">
-        <h2 class="text-xl font-light text-center tracking-wide mb-2">Sales Over Time</h2>
+        <h2 class="text-3xl font-light text-center tracking-wide mb-2">Sales Over Time</h2>
         <div id="salesChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="text-xl font-light text-center tracking-wide mb-2">Units Sold Over Time</h2>
+        <h2 class="text-3xl font-light text-center tracking-wide mb-2">Units Sold Over Time</h2>
         <div id="unitsChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="text-xl font-light text-center tracking-wide mb-2">Profit Over Time</h2>
+        <h2 class="text-3xl font-light text-center tracking-wide mb-2">Profit Over Time</h2>
         <div id="profitChart" class="w-full h-[400px]"></div>
       </div>
       <div class="w-full">
-        <h2 class="text-xl font-light text-center tracking-wide mb-2">Advertising Over Time</h2>
+        <h2 class="text-3xl font-light text-center tracking-wide mb-2">Advertising Over Time</h2>
         <div id="adsChart" class="w-full h-[400px]"></div>
       </div>
     </div>
@@ -89,6 +90,8 @@
 
     fetchData();
   </script> -->
-  <script src="/static/dashboard.js"></script>
+  <!-- <script src="/static/dashboard.js"></script> -->
+  <script src="/static/dashboard.js?v=2"></script>
+
 </body>
 </html>

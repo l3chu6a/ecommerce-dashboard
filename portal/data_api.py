@@ -25,11 +25,11 @@ def get_dashboard_data(client_id):
     amount_description = request.args.get("amount_description")
 
     base_query = f"""
-        SELECT date, sku, amount_description, amount as total
+        SELECT date, marketplace, sku, amount_description, amount as total
         FROM {client_id}.vw_dashboard_settlement
-        WHERE 1=1
+        WHERE date BETWEEN :start_date AND :end_date
     """
-
+    # settlement_id, order_id, amount, date, marketplace, sku, amount_type, amount_description, transaction_type            
     params = {}
     if start_date and end_date:
         base_query += " AND date BETWEEN :start_date AND :end_date"

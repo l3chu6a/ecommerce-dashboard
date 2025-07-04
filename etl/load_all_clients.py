@@ -9,7 +9,8 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 # Ruta base donde están las carpetas por cliente
-BASE_PATH = "data"
+# BASE_PATH = "data"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
 
 # Recorremos cada subcarpeta en "data/"
 for client_id in os.listdir(BASE_PATH):
@@ -47,7 +48,7 @@ for client_id in os.listdir(BASE_PATH):
                     amount_type             TEXT,
                     amount_description      TEXT,
                     amount                  NUMERIC,
-                    currency                NUMERIC,
+                    currency                TEXT,
                     inserted_at TIMESTAMP DEFAULT NOW()
                 );
             """))

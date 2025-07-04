@@ -4,27 +4,10 @@ const client = window.location.pathname.split("/").pop();
 const filters = {
   range: "all", // all, month, week, yesterday
   sku: "",
-  amount_description: ""
+  amount_description: "",
+  marketplace: ""
 };
 
-// function applyDateFilter(dateStr) {
-//   const today = new Date(today);
-//   const d = new Date(dateStr);
-//   if (filters.range === "yesterday") {
-//     const y = new Date(today);
-//     y.setDate(today.getDate() - 1);
-//     return d.toDateString() === y.toDateString();
-//   } else if (filters.range === "week") {
-//     const w = new Date(today);
-//     w.setDate(today.getDate() - 7);
-//     return d >= w;
-//   } else if (filters.range === "month") {
-//     const m = new Date(today);
-//     m.setMonth(today.getMonth() - 1);
-//     return d >= m;
-//   }
-//   return true; // all
-// }
 function applyDateFilter(dateStr) {
   const today = new Date();
   let startDate = null;
@@ -43,11 +26,6 @@ function applyDateFilter(dateStr) {
     const m = new Date();
     m.setMonth(m.getMonth() - 1);
     startDate = m.toISOString().split("T")[0];
-  // } else if (filters.range === "previous month") {
-  //   const m = new Date();
-  //   m.setMonth(m.getMonth() - 2);
-  //   startDate = m.toISOString().split("T")[0];
-  // }
   } else if (filters.range === "previous month") {
   const today = new Date();
 
@@ -56,6 +34,8 @@ function applyDateFilter(dateStr) {
 
   startDate = start.toISOString().split("T")[0];
   endDate = end.toISOString().split("T")[0];
+  } else if (filters.range === "all") {
+    return {};  // ✅ ¡Este es el truco!
   }
   // const endDate = today.toISOString().split("T")[0];
   return startDate ? { start_date: startDate, end_date: endDate } : {};
@@ -66,11 +46,11 @@ function applyDateFilter(dateStr) {
 
 
 async function fetchAndRender() {
-  // const res = await fetch(`/api/data/${client}`);
   const query = new URLSearchParams({
   ...applyDateFilter(),
   sku: filters.sku,
-  amount_description: filters.amount_description
+  amount_description: filters.amount_description,
+  marketplace: filters.marketplace 
   });
 const res = await fetch(`/api/data/${client}?${query}`);
   const data = await res.json();
@@ -83,12 +63,16 @@ const res = await fetch(`/api/data/${client}?${query}`);
     const amt = parseFloat(row.total || 0);
     const desc = (row.amount_description || "").toLowerCase();
     const sku = (row.sku || "").toLowerCase();
+    const marketplace = (row.marketplace || "").toLowerCase();
+
 
     if (!applyDateFilter(rawDate)) return;
     if (filters.sku && !sku.includes(filters.sku.toLowerCase())) return;
     if (filters.amount_description && !desc.includes(filters.amount_description.toLowerCase())) return;
+    if (filters.marketplace && !desc.includes(filters.marketplace.toLowerCase())) return;
+    if (filters.marketplace && !marketplace.includes(filters.marketplace.toLowerCase())) return;
 
-    // const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; // Agrupar por mes
+
     const dateKey = d.toISOString().split("T")[0]; // yyyy-mm-dd
 
 
@@ -140,10 +124,10 @@ const res = await fetch(`/api/data/${client}?${query}`);
     font: { color: "#333" }
   });
 
-  Plotly.newPlot("salesChart", [{ x: dates, y: salesArr, mode: "lines+markers", line: { color: "#16a34a" }, marker: { size: 10 }, name: "Sales" }], layout("", "#16a34a", "#ecfdf5"),{ responsive: true });
-  Plotly.newPlot("unitsChart", [{ x: dates, y: unitsArr, mode: "lines+markers", line: { color: "#2563eb" }, marker: { size: 10 },name: "Units" }], layout("", "#2563eb", "#eff6ff"),{ responsive: true });
-  Plotly.newPlot("profitChart", [{ x: dates, y: profitArr, mode: "lines+markers", line: { color: "#9333ea" }, marker: { size: 10 },name: "Profit" }], layout("", "#9333ea", "#f5f3ff"),{ responsive: true });
-  Plotly.newPlot("adsChart", [{ x: dates, y: adsArr, mode: "lines+markers", line: { color: "#f87171" }, marker: { size: 10 },name: "Advertising" }], layout("", "#f87171", "#fef2f2"),{ responsive: true });
+  Plotly.newPlot("salesChart", [{ x: dates, y: salesArr, mode: "lines+markers", line: { color: "#16a34a" }, marker: { size: 15 }, name: "Sales" }], layout("", "#16a34a", "#ecfdf5"),{ responsive: true });
+  Plotly.newPlot("unitsChart", [{ x: dates, y: unitsArr, mode: "lines+markers", line: { color: "#2563eb" }, marker: { size: 15 },name: "Units" }], layout("", "#2563eb", "#eff6ff"),{ responsive: true });
+  Plotly.newPlot("profitChart", [{ x: dates, y: profitArr, mode: "lines+markers", line: { color: "#9333ea" }, marker: { size: 15 },name: "Profit" }], layout("", "#9333ea", "#f5f3ff"),{ responsive: true });
+  Plotly.newPlot("adsChart", [{ x: dates, y: adsArr, mode: "lines+markers", line: { color: "#f87171" }, marker: { size: 15 },name: "Advertising" }], layout("", "#f87171", "#fef2f2"),{ responsive: true });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -163,6 +147,11 @@ window.addEventListener("DOMContentLoaded", () => {
     filters.amount_description = e.target.value;
     fetchAndRender();
   });
+    const markInput = document.getElementById("markFilter");
+  if (markInput) markInput.addEventListener("input", e => {
+    filters.marketplace = e.target.value;
+    fetchAndRender();
 });
 
 fetchAndRender();
+});
