@@ -38,13 +38,16 @@ for client_id in os.listdir(BASE_PATH):
             # Crear tabla raw si no existe
             conn.execute(text(f"""
                 CREATE TABLE IF NOT EXISTS {schema_name}.raw_amazon_settlement (
-                    settlement_id TEXT,
-                    order_id TEXT,
-                    sku TEXT,
-                    amount_type TEXT,
-                    amount_description TEXT,
-                    amount NUMERIC,
-                    date DATE,
+                    settlement_id           TEXT,
+                    date                    TEXT,
+                    order_id                TEXT,
+                    sku                     TEXT,
+                    marketplace             TEXT,
+                    transaction_type        TEXT,  
+                    amount_type             TEXT,
+                    amount_description      TEXT,
+                    amount                  NUMERIC,
+                    currency                NUMERIC,
                     inserted_at TIMESTAMP DEFAULT NOW()
                 );
             """))

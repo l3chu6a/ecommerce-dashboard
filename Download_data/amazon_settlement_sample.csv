@@ -1,6 +1,0 @@
-settlement_id,order_id,sku,amount_type,amount_description,amount,date
-SETT123,ORD1001,SKU-ABC,item_price,Principal,100.00,2025-07-01
-SETT123,ORD1001,SKU-ABC,commission,Commission,-15.00,2025-07-01
-SETT123,ORD1001,SKU-ABC,fbafee,FBA Fee,-5.00,2025-07-01
-SETT124,ORD1002,SKU-XYZ,item_price,Principal,200.00,2025-07-02
-SETT124,ORD1002,SKU-XYZ,commission,Commission,-30.00,2025-07-02
